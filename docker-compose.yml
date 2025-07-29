@@ -1,0 +1,29 @@
+version: "3.9"
+
+services:
+  login-service:
+    build: .
+    container_name: login-service
+    restart: always
+    ports:
+      - "3005:3005"
+    env_file:
+      - .env
+    depends_on:
+      - db
+
+  db:
+    image: postgres:14
+    container_name: login-db
+    restart: always
+    environment:
+      POSTGRES_USER: gary
+      POSTGRES_PASSWORD: Spen1cer
+      POSTGRES_DB: users
+    ports:
+      - "5433:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:
